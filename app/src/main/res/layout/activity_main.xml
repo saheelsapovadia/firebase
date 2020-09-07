@@ -6,13 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/name_btn"
+        android:layout_width="345dp"
+        android:layout_height="49dp"
+        android:text="DISPLAY YOUR PROFILE FROM FIRESTORE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.863" />
+
     <TextView
+        android:id="@+id/name_txt"
+        android:layout_width="256dp"
+        android:layout_height="45dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/name_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235"
+        />
+
+    <TextView
+        android:id="@+id/age_txt"
+        android:layout_width="256dp"
+        android:layout_height="45dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/name_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_txt"
+        app:layout_constraintVertical_bias="0.127" />
+
+    <TextView
+        android:id="@+id/dob_txt"
+        android:layout_width="256dp"
+        android:layout_height="45dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/name_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/age_txt"
+        app:layout_constraintVertical_bias="0.222" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="77dp" />
+
+    <TextView
+        android:id="@+id/membership_txt"
+        android:layout_width="256dp"
+        android:layout_height="45dp"
+        android:textSize="20sp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/name_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dob_txt"
+        app:layout_constraintVertical_bias="0.007" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
