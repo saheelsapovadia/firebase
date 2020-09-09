@@ -1,6 +1,7 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -15,7 +16,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -28,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     Button button;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String name, age,membership;
-    Long  dob;
+    String name, age, membership;
+    Long dob;
     CollectionReference db_p;
 
     @Override
@@ -46,42 +49,39 @@ public class MainActivity extends AppCompatActivity {
         membership_t = findViewById(R.id.membership_txt);
 
 
-
         db_p = db.collection("users").document("saheel").collection("saheel");
         button.setOnClickListener(new View.OnClickListener() {
             private static final String TAG = "MyActivity";
 
             @Override
             public void onClick(View view) {
-                db_p.get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
+                db_p.document("personal_info").addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                   @Override
+                   public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException e) {
+                       if (e != null) {
+                           Log.w(TAG, "Listen failed.", e);
+                           return;
+                       }
 
-                                    List<DocumentSnapshot> db_list;
-                                    QuerySnapshot document = task.getResult();
-                                    db_list = document.getDocuments();
-
-                                    name = (String) db_list.get(0).get("name");
-                                    membership = (String) db_list.get(0).get("membership");
-                                    age = (String) db_list.get(0).get("age");
-                                    dob = (Long) db_list.get(0).get("DOB");
-
-                                    name_t.setText(name);
-                                    age_t.setText(""+age);
-                                    membership_t.setText(membership);
-                                    dob_t.setText(""+dob);
+                       if (value != null && value.exists()) {
+                           Log.d(TAG, "Current data: " + value.getData());
+                           name = (String) value.get("name");
+                           membership = (String) value.get("membership");
+                           age = (String) value.get("age");
+                           dob = (Long) value.get("DOB");
 
 
-                                } else {
-                                    Log.d(TAG, "Error getting documents: ", task.getException());
-                                }
-                            }
-                        });
+                           name_t.setText(name);
+                           age_t.setText("" + age);
+                           membership_t.setText(membership);
+                           dob_t.setText("" + dob);
+                       } else {
+                           Log.d(TAG, "Current data: null");
+                       }
+                   }
+               });
 
-
-
+               //db_p.document("personal_info").get().getResult()
             }
         });
 
